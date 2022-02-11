@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, { Component } from "react";
+import { SearchBar, VideoDetail, VideoItem } from "./components";
+import axios from "axios";
+import youtube from "./API/youtube";
+import { Grid } from "@material-ui/core";
+export default class App extends Component {
+  state = {
+    videos: [],
+    firstVideo: null,
+  };
+  /*componentDidMount(){
+    this.handleFormSubmit("Sergio Ramos");
+  }*/
+  handleFormSubmit = async (search) => {
+    const {
+      data: { items},
+    } = await youtube.get("search", {
+      params: {
+        part: "snippet",
+        maxResults: 5,
+        key: "AIzaSyAgVL7b98VfzsdQYBxXA_vLVy7hrQgL5pE",
+        q: search,
+      },
+    });
+    this.setState({
+      videos: items,
+      firstVideo: items[0],
+    });
+    console.log(this.state.videos);
+  };
+  render() {
+    const { video, firstVideo } = this.state;
+    return (
+      <Grid justifyContent="center" container>
+        <Grid item xs={12}>
+          <Grid container style={{ padding: "15px" }}>
+            <Grid item xs={12}>
+              <SearchBar formSubmit={this.handleFormSubmit} />
+            </Grid>
+            <Grid item md={8} xs={12}>
+              <VideoDetail firstVideo={firstVideo} />
+            </Grid>
+            <Grid item md={4} xs={12}>
+              <VideoItem />
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    );
+  }
 }
-
-export default App;
