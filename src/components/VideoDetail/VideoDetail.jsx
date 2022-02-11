@@ -26,7 +26,7 @@ const VideoDetail = ({ firstVideo }) => {
         <Typography variant="h6">
           {title}
         </Typography>
-        <Typography variant="subtitle1">
+        <Typography variant="subtitle2">
           {description}
         </Typography>
       </Paper>
