@@ -6,9 +6,9 @@ export default class SearchBar extends Component {
   };
   handleSearch = (event) => this.setState({ searchTerm: event.target.value });
   handleSubmit = (event) => {
-    const { searchTerm } = this.state;
+    //const { searchTerm } = this.state;
     const { formSubmit } = this.props;
-    formSubmit(searchTerm);
+    formSubmit(this.state.searchTerm);
     event.preventDefault();
   };
   render() {

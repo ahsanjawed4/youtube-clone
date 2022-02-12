@@ -8,12 +8,12 @@ export default class App extends Component {
     videos: [],
     firstVideo: null,
   };
-  /*componentDidMount(){
-    this.handleFormSubmit("Sergio Ramos");
-  }*/
+  componentDidMount() {
+    this.handleFormSubmit("pasoori");
+  }
   handleFormSubmit = async (search) => {
     const {
-      data: { items},
+      data: { items },
     } = await youtube.get("search", {
       params: {
         part: "snippet",
@@ -26,10 +26,10 @@ export default class App extends Component {
       videos: items,
       firstVideo: items[0],
     });
-    console.log(this.state.videos);
+    //console.log(this.state.videos);
   };
   render() {
-    const { video, firstVideo } = this.state;
+    const { videos, firstVideo } = this.state;
     return (
       <Grid justifyContent="center" container>
         <Grid item xs={12}>
@@ -41,7 +41,7 @@ export default class App extends Component {
               <VideoDetail firstVideo={firstVideo} />
             </Grid>
             <Grid item md={4} xs={12}>
-              <VideoItem />
+              <VideoItem videoItems={videos} />
             </Grid>
           </Grid>
         </Grid>
